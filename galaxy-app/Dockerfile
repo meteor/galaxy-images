@@ -14,12 +14,14 @@ RUN mkdir -p /app/bundle
 # collect these stats). This reduces the size of the non-base image layers and
 # speeds up app builds for apps using these versions. Other versions will still
 # work.
-RUN NODE_VERSION="8.9.3" /app/install_node.sh && \
-    NODE_VERSION="4.8.4" /app/install_node.sh && \
-    NODE_VERSION="4.8.3" /app/install_node.sh && \
-    NODE_VERSION="4.8.2" /app/install_node.sh && \
-    NODE_VERSION="4.8.1" /app/install_node.sh && \
-    NODE_VERSION="4.8.0" /app/install_node.sh && \
-    NODE_VERSION="4.7.3" /app/install_node.sh
+#
+# We avoid including any version older than 8.9.4, because some versions of npm
+# older than 5.6.0 (included with 8.9.4) seem to hit
+# https://github.com/npm/npm/issues/16807. The symptom is that running `npm -g
+# install npm@xxx` from setup.sh would corrupt the npm installation, but only if
+# Node is installed in a base image and npm is upgraded in the next image. So
+# it's OK for setup.sh to install both Node and npm for older versions, but not
+# for us to "cache" older Node versions.
+RUN NODE_VERSION="8.9.4" /app/install_node.sh
 
 CMD ["/app/run.sh"]
