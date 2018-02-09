@@ -22,6 +22,10 @@ npm -g install npm@"${npm_version}"
 
 # NPM install
 pushd programs/server
+
+# Workaround: rebuilding libxml-xsd doesn't rebuild libxmljs-mt first!
+(cd npm && npm rebuild --unsafe-perm libxmljs-mt)
+
 # Pass --unsafe-perm in order to still run scripts even though we run as root.
 npm install --unsafe-perm
 
