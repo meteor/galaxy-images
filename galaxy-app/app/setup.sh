@@ -13,6 +13,12 @@ cd /app/bundle
 export NODE_VERSION
 NODE_VERSION=$(/app/select_node_version.sh)
 /app/install_node.sh
+
+# Skip npm rebuild step, which appears to be buggy for some users right now.
+# This breaks the ability to deploy non-portable npm modules from non-Linux-64
+# platforms.
+exit 0
+
 export PATH="/node-v${NODE_VERSION}-linux-x64/bin:$PATH"
 
 # Install the desired version of npm, if we know what it is, otherwise
