@@ -23,5 +23,6 @@ RUN mkdir -p /app/bundle
 # it's OK for setup.sh to install both Node and npm for older versions, but not
 # for us to "cache" older Node versions.
 RUN NODE_VERSION="8.9.4" /app/install_node.sh
+RUN NODE_VERSION="8.11.1" /app/install_node.sh
 
 CMD ["/app/run.sh"]
