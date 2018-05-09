@@ -7,7 +7,7 @@ set -e
 # that works for older versions too.
 
 meteor_star_json="/app/bundle/star.json"
-default="4.9.0" # Works for all 1.4.x and 1.5.x apps.
+default="0.10.46"
 
 get_desired_version() {
   if [ -f "${meteor_star_json}" ]; then
