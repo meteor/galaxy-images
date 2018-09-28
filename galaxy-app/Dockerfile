@@ -6,6 +6,15 @@ RUN apt-get update && \
     apt-get install -y jq xz-utils && \
     rm -rf /var/lib/apt/lists/*
 
+# Set up c++14 compiler needed by the yoga-layout npm module (used by react-pdf).
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get update -qq && \
+    apt-get install -qq g++-6 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90 && \
+    rm -rf /var/lib/apt/lists/*
+
 ADD ./app /app
 RUN mkdir -p /app/bundle
 
