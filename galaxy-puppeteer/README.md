@@ -2,7 +2,7 @@
 
 `meteor/galaxy-puppeteer` is a galaxy-app image with changes for supporting running puppeteer.
 
-As puppeteer run with superuser priveleges, you need to pass the flag '--no-sandbox'.
+As puppeteer runs with superuser privileges, you need to pass the flag '--no-sandbox'. (This is not a security flaw, as we are running with docker)
 Ex:
 
 ```js
