@@ -1,4 +1,4 @@
-FROM meteor/ubuntu:20160830T182201Z_0f378f5
+FROM meteor/ubuntu:20210319
 
 # Make sure we have xz-utils so we can untar node binary, and jq to parse
 # star.json to choose the npm version.
@@ -31,9 +31,9 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt-get -y clean
-RUN sudo apt-get -y update
-RUN sudo apt-get -y install dpkg
+RUN apt-get -y clean
+RUN apt-get -y update
+RUN apt-get -y install dpkg
 
 RUN  apt-get update \
      && apt-get install -y wget gnupg ca-certificates \
