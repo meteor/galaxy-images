@@ -1,11 +1,11 @@
-FROM ubuntu:20.10
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV UBUNTU_VERSION 20.10
+ENV UBUNTU_VERSION 20.04
 
 RUN apt-get update && \
     apt-get --yes upgrade && \
-    apt-get install -y curl ca-certificates && \
+    apt-get install -y curl ca-certificates python-is-python2 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install some dependencies that Galaxy users have requested for their apps.  We
