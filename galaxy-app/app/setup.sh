@@ -20,10 +20,12 @@ export PATH="/node-v${NODE_VERSION}-linux-x64/bin:$PATH"
 npm_version=$(/app/select_npm_version.sh)
 npm -g install npm@"${npm_version}"
 
-# NPM install
 pushd programs/server
-# Pass --unsafe-perm in order to still run scripts even though we run as root.
-npm install --unsafe-perm
+
+if [ ! -f "/app/bundle/programs/server/assets/app/p2d-enabled.galaxy"]; then
+  # Pass --unsafe-perm in order to still run scripts even though we run as root.
+  npm install --unsafe-perm
+fi
 
 # Run custom setup.sh in programs/server if provided, as ROOT.
 if [ -x ./setup.sh ]; then
