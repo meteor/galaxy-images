@@ -22,7 +22,7 @@ npm -g install npm@"${npm_version}"
 
 pushd programs/server
 
-if [ ! -f "/app/bundle/programs/server/assets/app/p2d-enabled.galaxy"]; then
+if [ ! -f "/app/bundle/programs/server/assets/app/p2d-enabled.galaxy" ]; then
   # Pass --unsafe-perm in order to still run scripts even though we run as root.
   npm install --unsafe-perm
 fi
