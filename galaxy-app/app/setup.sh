@@ -22,10 +22,12 @@ npm -g install npm@"${npm_version}"
 
 pushd programs/server
 
-if [ ! -f "/app/bundle/programs/server/assets/app/p2d-enabled.galaxy" ]; then
-  # Pass --unsafe-perm in order to still run scripts even though we run as root.
-  npm install --unsafe-perm
+if [ -f "/app/bundle/programs/server/assets/app/p2d-enabled.galaxy" ]; then
+  export METEOR_SKIP_NPM_REBUILD=1
 fi
+
+# Pass --unsafe-perm in order to still run scripts even though we run as root.
+npm install --unsafe-perm
 
 # Run custom setup.sh in programs/server if provided, as ROOT.
 if [ -x ./setup.sh ]; then
