@@ -24,6 +24,7 @@ ADD ./app /app
 #2.2 and 1.8.1
 RUN mkdir -p /app/bundle && \
     NODE_VERSION="12.22.2" /app/install_node.sh && \
+    NODE_VERSION="14.21.4" /app/install_node.sh && \
     NODE_VERSION="8.15.1" /app/install_node.sh
 
 
