@@ -31,6 +31,8 @@ RUN NODE_VERSION="12.16.1" /app/install_node.sh
 #1.8.1
 RUN NODE_VERSION="8.15.1" /app/install_node.sh
 
+RUN NODE_VERSION="14.21.4" /app/install_node.sh
+
 RUN apt-get update \
     && apt-get install -y wget gnupg \
     && apt-get update \
