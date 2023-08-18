@@ -21,6 +21,9 @@ then
     # Download the custom build that shipped with Meteor 1.6.1.1:
     # https://github.com/meteor/node/commits/v8.11.1-meteor
     NODE_URL="https://s3.amazonaws.com/com.meteor.jenkins/dev-bundle-node-129/node_Linux_x86_64_v8.11.1.tar.gz"
+elif [ "$NODE_VERSION" == "14.21.4" ]
+then
+    NODE_URL="https://static.meteor.com/dev-bundle-node-os/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 elif [[ "$NODE_VERSION" =~ -rc\.[0-9]+$ ]]
 then
     NODE_URL="https://nodejs.org/download/rc/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
