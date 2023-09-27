@@ -21,13 +21,3 @@ COPY ./scripts $BUILD_SCRIPTS_DIR
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
 ENV PATH="/home/mt/.meteor:${PATH}"
-
-# install all dependencies, build app, install node, clean up
-RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
-    $BUILD_SCRIPTS_DIR/install_node.sh
-
-
-WORKDIR $APP_BUNDLE_FOLDER/bundle
-
-# start the app
-CMD ["/bin/bash", "-c", "${BUILD_SCRIPTS_DIR}/run.sh"]
