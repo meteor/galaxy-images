@@ -26,12 +26,7 @@ ENV PATH="/home/mt/.meteor:${PATH}"
 RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
     $BUILD_SCRIPTS_DIR/install_node.sh
 
-# Set environment variables
-ENV ROOT_URL http://localhost
-ENV PORT 3000
 
-# Expose port and set working directory
-EXPOSE 3000
 WORKDIR $APP_BUNDLE_FOLDER/bundle
 
 # start the app
