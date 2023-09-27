@@ -7,7 +7,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create the user 'mt'
-RUN groupadd -r mt && useradd -m -g mt mt
+RUN groupadd -r mt && useradd -m -g mt mt && chown -Rh mt .meteor/local
 
 ENV BUILD_SCRIPTS_DIR /opt/build_scripts
 ENV APP_SOURCE_FOLDER /opt/meteor/src
