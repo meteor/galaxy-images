@@ -1,10 +1,17 @@
-FROM meteor/ubuntu:20210720
-SHELL ["/bin/bash", "-c"]
+FROM debian:bullseye-slim
 
-# Make sure we have jq to parse star.json to choose the npm version.
+ENV DEBIAN_FRONTEND noninteractive
+
+# Install dependencies
+# Note: 'python-is-python2' is not available in Debian Bullseye. Instead, we use 'python2'.
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y jq && \
+    apt-get install -y --no-install-recommends jq curl ca-certificates python2 rsync \
+      libssl-dev wget build-essential git && \
     rm -rf /var/lib/apt/lists/*
+
+# Set python2 as the default python
+RUN ln -s /usr/bin/python2 /usr/bin/python
+SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
 RUN groupadd -r mt && useradd -m -g mt mt
