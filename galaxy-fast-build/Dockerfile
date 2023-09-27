@@ -30,8 +30,7 @@ ENV PATH="/home/mt/.meteor:${PATH}"
 
 # install all dependencies, build app, install node, clean up
 RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
-    $BUILD_SCRIPTS_DIR/install_node.sh && \
-    $BUILD_SCRIPTS_DIR/cleanup.sh
+    $BUILD_SCRIPTS_DIR/install_node.sh
 
 # Set environment variables
 ENV ROOT_URL http://localhost
