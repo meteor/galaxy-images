@@ -7,11 +7,13 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create the user 'mt'
-RUN groupadd -r mt && useradd -m -g mt mt && chown -Rh mt .meteor/local
+RUN groupadd -r mt && useradd -m -g mt mt
 
 ENV BUILD_SCRIPTS_DIR /opt/build_scripts
 ENV APP_SOURCE_FOLDER /opt/meteor/src
 ENV APP_BUNDLE_FOLDER /opt/meteor/dist
+# Fix permissions warning; https://github.com/meteor/meteor/issues/7959
+ENV METEOR_ALLOW_SUPERUSER true
 
 # Add entrypoint and build scripts
 COPY ./scripts $BUILD_SCRIPTS_DIR
