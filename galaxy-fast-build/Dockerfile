@@ -18,12 +18,6 @@ ENV METEOR_ALLOW_SUPERUSER true
 # Add entrypoint and build scripts
 COPY ./scripts $BUILD_SCRIPTS_DIR
 
-# Copy app package.json and package-lock.json into container and app folder
-COPY ./app/package*.json $APP_SOURCE_FOLDER/
-COPY ./app $APP_SOURCE_FOLDER
-
-
-
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
 ENV PATH="/home/mt/.meteor:${PATH}"
