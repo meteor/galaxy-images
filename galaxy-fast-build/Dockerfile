@@ -14,7 +14,3 @@ ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
 
 # Add entrypoint and build scripts
 COPY ./scripts $BUILD_SCRIPTS_DIR
-
-# Install Meteor
-RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
-ENV PATH="/root/.meteor:${PATH}"
