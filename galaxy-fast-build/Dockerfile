@@ -1,20 +1,9 @@
-FROM ubuntu:20.04
-
-ENV DEBIAN_FRONTEND=noninteractive \
-    UBUNTU_VERSION=20.04
+FROM meteor/ubuntu:20210720
 
 # Update packages and install necessary dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     jq \
-    curl \
-    ca-certificates \
-    python-is-python2 \
-    rsync \
-    libssl-dev \
-    wget \
-    build-essential \
-    git && \
     # Clean up to reduce image size
     rm -rf /var/lib/apt/lists/*
 
