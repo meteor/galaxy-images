@@ -18,5 +18,3 @@ sed -i.bak "s/tar -xzf.*/tar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /
 # install
 printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
 sh /tmp/install_meteor.sh
-
-echo "export PATH=$PATH:/home/mt/.meteor" >> /home/mt/.bashrc
