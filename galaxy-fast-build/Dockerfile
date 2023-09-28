@@ -10,9 +10,10 @@ RUN apk --no-cache add \
     openssl-dev \
     wget \
     build-base \
-    git
+    git \
+    bash
 
-SHELL ["/bin/ash", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
 RUN addgroup -S mt && adduser -S mt -G mt
@@ -30,9 +31,6 @@ COPY ./scripts $BUILD_SCRIPTS_DIR
 COPY ./app/package*.json $APP_SOURCE_FOLDER/
 COPY ./app $APP_SOURCE_FOLDER
 
-# Grant permissions for our scripts to be executable
-RUN chmod +x $BUILD_SCRIPTS_DIR/*.sh
-
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
 ENV PATH="/home/mt/.meteor:${PATH}"
@@ -44,4 +42,4 @@ RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
 WORKDIR $APP_BUNDLE_FOLDER/bundle
 
 # start the app
-CMD ["/bin/ash", "-c", "${BUILD_SCRIPTS_DIR}/run.sh"]
+CMD ["/bin/bash", "-c", "${BUILD_SCRIPTS_DIR}/run.sh"]

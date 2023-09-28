@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -11,7 +11,7 @@ cd "$APP_BUNDLE_FOLDER"
 if [ -x custom_run.sh ]; then
   # In theory, let people configure their runtime by including run.sh in the
   # bundle (but Meteor doesn't actually provide a way to do this).
-  exec sh custom_run.sh
+  exec bash custom_run.sh
 else
   # Allow users to specify options to pass to Node via $GALAXY_NODE_OPTIONS env
   # var or the deprecated $NODE_OPTIONS env var, which may contain spaces to
