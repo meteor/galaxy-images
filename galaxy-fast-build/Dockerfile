@@ -12,8 +12,6 @@ RUN apk --no-cache add \
     build-base \
     git
 
-# Set python2 as the default python
-RUN ln -s /usr/bin/python2 /usr/bin/python
 SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
