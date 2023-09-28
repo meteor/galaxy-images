@@ -2,6 +2,11 @@
 
 set -e
 
+# Install right version of Node and add it to PATH
+# for `node main.js` later
+NODE_VERSION=$("$BUILD_SCRIPTS_DIR/select_node_version.sh")
+export NODE_VERSION
+
 if [ -z "$NODE_VERSION" ]; then
   echo "NODE_VERSION is not set." >&2
   exit 1
