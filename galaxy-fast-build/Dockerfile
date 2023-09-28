@@ -1,22 +1,28 @@
-FROM alpine:3.14
+FROM ubuntu:20.04
 
-# Install dependencies
-RUN apk --no-cache add \
+ENV DEBIAN_FRONTEND=noninteractive
+ENV UBUNTU_VERSION 20.04
+
+# Update packages and install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     jq \
     curl \
     ca-certificates \
-    python2 \
+    python-is-python2 \
     rsync \
-    openssl-dev \
+    libssl-dev \
     wget \
-    build-base \
-    git \
-    bash
+    build-essential \
+    git && \
+    # Clean up to reduce image size
+    rm -rf /var/lib/apt/lists/*
 
+# Set the default shell to bash
 SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
-RUN addgroup -S mt && adduser -S mt -G mt
+RUN addgroup mt && adduser --ingroup mt mt
 USER mt
 
 ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
