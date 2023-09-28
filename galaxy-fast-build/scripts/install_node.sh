@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
-# Install right version of Node and add it to PATH
+# Install the right version of Node and add it to PATH
 # for `node main.js` later
 NODE_VERSION=$("$BUILD_SCRIPTS_DIR/select_node_version.sh")
 export NODE_VERSION
@@ -21,20 +21,22 @@ echo "Installing node version ${NODE_VERSION} to /node-v${NODE_VERSION}-linux-x6
 
 set -x
 
-if [ "$NODE_VERSION" == "8.11.1" ]
-then
+case "$NODE_VERSION" in 
+  "8.11.1")
     # Download the custom build that shipped with Meteor 1.6.1.1:
     # https://github.com/meteor/node/commits/v8.11.1-meteor
     NODE_URL="https://s3.amazonaws.com/com.meteor.jenkins/dev-bundle-node-129/node_Linux_x86_64_v8.11.1.tar.gz"
-elif [ "$NODE_VERSION" == "14.21.4" ]
-then
+    ;;
+  "14.21.4")
     NODE_URL="https://static.meteor.com/dev-bundle-node-os/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
-elif [[ "$NODE_VERSION" =~ -rc\.[0-9]+$ ]]
-then
+    ;;
+  *-rc.[0-9]*)
     NODE_URL="https://nodejs.org/download/rc/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
-else
+    ;;
+  *)
     NODE_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
-fi
+    ;;
+esac
 
 curl -sSL "$NODE_URL" | tar -xz -C /
 

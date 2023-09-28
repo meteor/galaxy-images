@@ -12,10 +12,10 @@ RUN apk --no-cache add \
     build-base \
     git
 
-SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/ash", "-c"]
 
 # Create the user 'mt'
-RUN groupadd -r mt && useradd -m -g mt mt
+RUN addgroup -S mt && adduser -S mt -G mt
 
 ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
     APP_SOURCE_FOLDER=/opt/meteor/src \
@@ -30,17 +30,18 @@ COPY ./scripts $BUILD_SCRIPTS_DIR
 COPY ./app/package*.json $APP_SOURCE_FOLDER/
 COPY ./app $APP_SOURCE_FOLDER
 
+# Grant permissions for our scripts to be executable
+RUN chmod +x $BUILD_SCRIPTS_DIR/*.sh
+
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
 ENV PATH="/home/mt/.meteor:${PATH}"
 
-
-# install all dependencies, build app, install node, clean up
+# install dependencies, build app, and install node
 RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
     $BUILD_SCRIPTS_DIR/install_node.sh
-
 
 WORKDIR $APP_BUNDLE_FOLDER/bundle
 
 # start the app
-CMD ["/bin/bash", "-c", "${BUILD_SCRIPTS_DIR}/run.sh"]
+CMD ["/bin/ash", "-c", "${BUILD_SCRIPTS_DIR}/run.sh"]

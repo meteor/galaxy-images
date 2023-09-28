@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #
 # builds a production meteor bundle directory
@@ -6,7 +6,7 @@
 set -e
 
 # set up npm auth token if one is provided
-if [[ "$NPM_TOKEN" ]]; then
+if [ "$NPM_TOKEN" ]; then
   echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 fi
 
@@ -15,7 +15,7 @@ cd $APP_SOURCE_FOLDER
 # Install app deps
 printf "\n[-] Running npm install in app directory...\n\n"
 # Check if METEOR_VERSION starts with 1.6
-if [[ "${METEOR_VERSION}" == 1.6* ]]; then
+if [ "${METEOR_VERSION}" = 1.6* ]; then
     meteor npm install --verbose
 else
     meteor npm ci --verbose

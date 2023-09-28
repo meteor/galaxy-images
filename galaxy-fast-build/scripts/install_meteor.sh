@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -14,4 +14,4 @@ printf "\n[-] Installing the latest version of Meteor...\n\n"
 sh /tmp/install_meteor.sh
 
 # Update the PATH
-echo "export PATH=$PATH:/home/mt/.meteor" >> /home/mt/.bashrc
+echo "export PATH=$PATH:/home/mt/.meteor" >> /home/mt/.ashrc
