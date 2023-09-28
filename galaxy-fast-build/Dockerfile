@@ -26,14 +26,13 @@ ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
 
 # Add entrypoint and build scripts
 COPY ./scripts $BUILD_SCRIPTS_DIR
-
-# Copy app package.json and package-lock.json into container and app folder
-COPY ./app/package*.json $APP_SOURCE_FOLDER/
 COPY ./app $APP_SOURCE_FOLDER
+
+# Switch to user 'mt' for subsequent commands
+USER mt
 
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
-ENV PATH="/home/mt/.meteor:${PATH}"
 
 # install dependencies, build app, and install node
 RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
