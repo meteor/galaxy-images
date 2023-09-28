@@ -17,6 +17,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
 RUN addgroup -S mt && adduser -S mt -G mt
+USER mt
 
 ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
     APP_SOURCE_FOLDER=/opt/meteor/src \
@@ -28,11 +29,9 @@ ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
 COPY ./scripts $BUILD_SCRIPTS_DIR
 COPY ./app $APP_SOURCE_FOLDER
 
-# Switch to user 'mt' for subsequent commands
-USER mt
-
 # Install Meteor
 RUN $BUILD_SCRIPTS_DIR/install_meteor.sh
+ENV PATH="/home/mt/.meteor:${PATH}"
 
 # install dependencies, build app, and install node
 RUN $BUILD_SCRIPTS_DIR/build_app.sh && \
