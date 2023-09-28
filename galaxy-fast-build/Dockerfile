@@ -22,8 +22,7 @@ RUN apt-get update && \
 SHELL ["/bin/bash", "-c"]
 
 # Create the user 'mt'
-RUN addgroup mt && adduser --ingroup mt mt
-USER mt
+RUN groupadd -r mt && useradd -m -g mt mt
 
 ENV BUILD_SCRIPTS_DIR=/opt/build_scripts \
     APP_SOURCE_FOLDER=/opt/meteor/src \
