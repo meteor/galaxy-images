@@ -37,3 +37,5 @@ else
 fi
 
 curl -sSL "$NODE_URL" | tar -xz -C /
+
+export PATH="/node-v${NODE_VERSION}-linux-x64/bin:$PATH"
