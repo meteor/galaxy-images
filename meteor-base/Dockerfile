@@ -1,21 +1,26 @@
 FROM meteor/ubuntu:20210720
-SHELL ["/bin/bash", "-c"]
 
 RUN useradd -ms /bin/bash mt
-USER mt
+ENV NODE_VERSION="14.21.4" 
+ENV NODE_URL="https://static.meteor.com/dev-bundle-node-os/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
+ENV DIR_NODE="/usr/local"
+
+# Make sure we have xz-utils so we can untar node binary, and jq to parse
+# star.json to choose the npm version.
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y jq xz-utils && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /home/mt
 
-ENV NVM_DIR /home/mt/.nvm
-ENV NODE_VERSION 14.17.6
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:/home/mt/.meteor:$PATH
 
-# Install nvm with node and npm
-RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.39.0/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default \
-    && npm install -g meteor@latest \
-    && source $HOME/.bashrc
+RUN curl -sSL "$NODE_URL" | tar -xz -C /usr/local/ && mv $DIR_NODE/node-v${NODE_VERSION}-linux-x64 $DIR_NODE/v$NODE_VERSION
 
+# add node and npm to path so the commands are available
+ENV NODE_PATH $DIR_NODE/v$NODE_VERSION/lib/node_modules
+ENV PATH $DIR_NODE/v$NODE_VERSION/bin:$PATH
+
+RUN chown -R mt:mt /usr/local/ /home/mt
+USER mt
+
+RUN npm install -g meteor@latest
